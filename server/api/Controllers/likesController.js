@@ -23,12 +23,12 @@ exports.likePost = async (req, res) => {
         const isLiked = await Likes.findOne({where: {UserId, ProfileId: profile.id, PostId: postId}});
         if(!isLiked){
             const like = await Likes.create({ProfileId: profile.id, UserId: UserId, PostId: postId});
-            res.json({message: "liked", like});
+            res.json({liked: true});
         }else{
             const dislike = await Likes.destroy({where: {ProfileId: profile.id, UserId: UserId, PostId: postId}});
-            res.json({message: "disliked", dislike})
+            res.json({liked: false})
         }
     } catch (error) {
-        
+        console.log(error);
     }
 }
